@@ -5,6 +5,7 @@ class JokesController < ApplicationController
     # Tell a joke
     response = Twilio::TwiML::Response.new do |r|
       r.Say joke, voice: 'alice', language: 'en-GB'
+      r.Hangup
     end
 
     render text: response.text
