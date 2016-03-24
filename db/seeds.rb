@@ -1,7 +1,8 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+(0..31).each do |i|
+  url = URI.parse("http://tambal.azurewebsites.net/joke/#{i}")
+  req = Net::HTTP::Get.new(url.to_s)
+  res = Net::HTTP.start(url.host, url.port) { |http|
+    http.request(req)
+  }
+  Joke.create(content: JSON.parse(res.body)['joke'])
+end
