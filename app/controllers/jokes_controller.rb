@@ -8,6 +8,9 @@ class JokesController < ApplicationController
       r.Hangup
     end
 
+    joke.increment(:tell_count)
+    joke.save
+
     render text: response.text
   end
 end
